@@ -1,0 +1,4 @@
+host: 172.20.0.19
+login: sa
+password: ti@ric2019
+MS SqlServer
