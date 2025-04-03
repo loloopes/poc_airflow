@@ -1,11 +1,21 @@
-# .git
-# .env
-# .DS_Store
-# airflow_settings.yaml
-# __pycache__/
-# astro
-# .venv
-# airflow-webserver.pid
-# webserver_config.py
-# airflow.cfg
-# airflow.db
+# Git & env
+.git
+.env
+.venv/
+.DS_Store
+
+# Airflow & Astro
+airflow_settings.yaml
+airflow-webserver.pid
+webserver_config.py
+airflow.cfg
+airflow.db
+astro/
+
+# Python
+__pycache__/
+*.pyc
+
+# MinIO
+include/data/minio/.minio.sys/
+include/data/minio/bucket-data/landing/*/*.csv/xl.meta
