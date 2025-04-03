@@ -1,18 +1,30 @@
-version: "3.1"
-services:
+# docker-compose.yml
+# version: "3.8"
 
+# TODO: Figure out which services actually need the volumes to overwrite files when saved
+services:
   webserver:
     networks:
       - ndsnet
+    volumes:
+      - ./temp/excel:/usr/local/airflow/temp/excel
+    extra_hosts: 
+      - "host.docker.internal:host-gateway"
 
   scheduler:
     networks:
       - ndsnet
-
+    volumes:
+      - ./temp/excel:/usr/local/airflow/temp/excel
+    extra_hosts: 
+      - "host.docker.internal:host-gateway"
   triggerer:
     networks:
       - ndsnet
-
+    volumes:
+      - ./temp/excel:/usr/local/airflow/temp/excel
+    extra_hosts: 
+      - "host.docker.internal:host-gateway"
   minio:
     image: minio/minio:RELEASE.2024-06-13T22-53-53Z
     container_name: minio
@@ -34,7 +46,7 @@ services:
       retries: 3
     networks:
       - ndsnet
-
+  
   spark-master:
     image: airflow/spark-master
     build: ./spark/master
@@ -67,16 +79,6 @@ services:
       - 3000:3000
     volumes:
       - ./include/data/metabase:/metabase-data
-    networks:
-      - ndsnet
-
-  docker-proxy:
-    image: alpine/socat
-    command: "TCP4-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock"
-    ports:
-      - "2376:2375"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - ndsnet
 

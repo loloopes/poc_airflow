@@ -1,16 +1,18 @@
 from datetime import datetime, timedelta
+
+import requests
 from airflow.decorators import dag, task
-from airflow.sensors.base import PokeReturnValue
 from airflow.hooks.base import BaseHook
 from airflow.operators.python import PythonOperator
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.providers.slack.notifications.slack_notifier import SlackNotifier
+from airflow.sensors.base import PokeReturnValue
 from astro import sql as aql
 from astro.files import File
-from astro.sql.table import Table, Metadata
-from include.stock_market.tasks import _get_stock_prices, _store_prices, _get_formatted_csv, BUCKET_NAME
+from astro.sql.table import Metadata, Table
 
-import requests
+from include.stock_market.tasks import (BUCKET_NAME, _get_formatted_csv,
+                                        _get_stock_prices, _store_prices)
 
 default_args = {
     'owner': 'loloopes',
