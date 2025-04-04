@@ -1,0 +1,4 @@
+host: 172.20.0.48
+port: 50440
+login: usr_dados
+pwd: ndtv!@102030
